@@ -1,6 +1,10 @@
 name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
 
-on: push
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -53,6 +57,7 @@ jobs:
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
+    if: github.event_name == 'release'  # only publish to TestPyPI on releases
     needs:
     - build
     runs-on: ubuntu-latest
